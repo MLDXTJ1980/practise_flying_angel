@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html lang="en">
+
+<head>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <script src="https://ajax.googleapis.com/ajax/libs/jquery/3.5.1/jquery.min.js"></script>
+    <title>节流阀（throttle）Angel flying with Mouse</title>
+    <!-- 节流（throttle）与防抖（debounce） 区别
+    防抖（debounce）措辞出发某事件 只执行最后一次 前n次被忽略
+    节流（throttle）减少事件出发频率-->
+    <!-- 节流阀 减少事件触发频率 -->
+    <style>
+        img {
+            position: absolute;
+            top: 2px;
+        }
+    </style>
+</head>
+
+<body>
+    <img src="images/angel.gif" alt="" id="angel" />
+</body>
+<script>
+    $(function() {
+        var angel = $("#angel")
+        var timer = null // 定义timer节流阀
+        $(document).on("mousemove", function(e) {
+            if (timer) {
+                // 判断timer节流阀是否为空，如果不为空说明距离上次执行时间不足20毫秒
+                return
+            }
+            var x = e.pageX
+            var y = e.pageY
+            timer = setTimeout(function() {
+                $(angel)
+                    .css("top", y + "px")
+                    .css("left", x + "px")
+                timer = null // 完成鼠标跟随效果后清空timer
+            }, 20) /* setTimeout 设定每20毫秒执行一次 */
+        })
+    })
+</script>
+
+</html>
